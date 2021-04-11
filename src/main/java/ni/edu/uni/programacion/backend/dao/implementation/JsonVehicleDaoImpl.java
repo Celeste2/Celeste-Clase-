@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import ni.edu.uni.programacion.backend.dao.VehicleDao;
 import ni.edu.uni.programacion.backend.pojo.Vehicle;
 
@@ -68,12 +69,38 @@ public class JsonVehicleDaoImpl extends RandomTemplate implements VehicleDao{
 
     @Override
     public int update(Vehicle t) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int index=0,k=0;
+      List<Vehicle> carro = getAll().stream().collect(Collectors.toList());
+        getCustomRandom().getRafH().setLength(0);
+        getCustomRandom().getRafH().setLength(SIZE);
+                
+        for (Vehicle v : carro) {
+            if(v.getVin().equals(t.getVin())){
+               index = getCustomRandom().getRafH().readInt();
+            }   
+        }
+        long posD = k*SIZE;        
+        getCustomRandom().getRafD().seek(posD);
+        
+        
+        
+        return index;     
     }
 
     @Override
     public boolean delete(Vehicle t) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Vehicle> carro = getAll().stream().collect(Collectors.toList());
+        getCustomRandom().getRafH().setLength(0);
+        getCustomRandom().getRafH().setLength(SIZE);
+                
+        for (Vehicle v : carro) {
+            if(v.getVin().equals(t.getVin())==false){
+               create(v);
+            }
+            
+        }
+        return true;   
     }
 
     @Override

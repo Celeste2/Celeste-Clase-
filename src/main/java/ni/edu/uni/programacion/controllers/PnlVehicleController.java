@@ -136,6 +136,7 @@ public class PnlVehicleController {
                     "Error message", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(PnlVehicleController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     
     private void btnBrowseActionListener(ActionEvent e){

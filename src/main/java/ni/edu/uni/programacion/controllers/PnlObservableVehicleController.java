@@ -31,16 +31,18 @@ import java.util.Observer;
  */
 public class PnlObservableVehicleController implements Observer {
 
-    public void observe(Observable Vehicle) 
+     public PnlObservableVehicleController() {
+    }
+    
+     public void observe(Observable Vehicle) 
     {
     Vehicle.addObserver(this);
     }
 
-    public PnlObservableVehicleController() {
-    }
+   
     public void update (Observable o, Object arg)
     {
-    
+    JOptionPane.showMessageDialog(null,"Se ha modificado la tabla, se sugiere revisar");
     }
     
 }

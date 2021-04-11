@@ -5,9 +5,15 @@
  */
 package ni.edu.uni.programacion.views;
 
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import ni.edu.uni.programacion.controllers.PnlViewVehicleController;
 import ni.edu.uni.programacion.views.panels.PnlDialogNew;
-import ni.edu.uni.programacion.views.panels.PnlDialogView;
+import ni.edu.uni.programacion.views.IntFrView;
+import ni.edu.uni.programacion.views.panels.PnlViewVehicle;
 
 /**
  *
@@ -15,10 +21,13 @@ import ni.edu.uni.programacion.views.panels.PnlDialogView;
  */
 public class FrmVehicleApp extends javax.swing.JFrame {
 
+    PnlViewVehicle pnlvVehicle;
+    PnlViewVehicleController pnlvVehicleController;
     /**
      * Creates new form FrmVehicleApp
      */
     public FrmVehicleApp() {
+        
         initComponents();
     }
 
@@ -31,7 +40,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jdpEscritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mniNew = new javax.swing.JMenuItem();
@@ -43,13 +52,20 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         setTitle("VEHICLE APP");
         setMinimumSize(new java.awt.Dimension(30, 35));
 
-        jTabbedPane1.setMinimumSize(new java.awt.Dimension(15, 15));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout jdpEscritorioLayout = new javax.swing.GroupLayout(jdpEscritorio);
+        jdpEscritorio.setLayout(jdpEscritorioLayout);
+        jdpEscritorioLayout.setHorizontalGroup(
+            jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 815, Short.MAX_VALUE)
+        );
+        jdpEscritorioLayout.setVerticalGroup(
+            jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 487, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("Options");
 
-        mniNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        mniNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/new-file.png"))); // NOI18N
         mniNew.setText("New");
         mniNew.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +75,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         });
         jMenu1.add(mniNew);
 
-        mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        mniView.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mniView.setText("View");
         mniView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +85,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
         jMenu1.add(mniView);
         jMenu1.add(jSeparator1);
 
-        mniSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        mniSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         mniSalir.setText("Salir");
         mniSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,16 +98,37 @@ public class FrmVehicleApp extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jdpEscritorio)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jdpEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         setSize(new java.awt.Dimension(831, 547));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniViewActionPerformed
         // TODO add your handling code here:
-        PnlDialogView dialogv= new PnlDialogView(this, true);
-        dialogv.setVisible(true);
+        IntFrView intfrview = null;
+//        pnlvVehicle=new PnlViewVehicle();
+        try {
+//            pnlvVehicleController= new PnlViewVehicleController(pnlvVehicle);
+            intfrview = new IntFrView();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmVehicleApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        jdpEscritorio.add(intfrview);
+        intfrview.setVisible(true);
     }//GEN-LAST:event_mniViewActionPerformed
 
+    
     private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mniSalirActionPerformed
@@ -143,7 +180,7 @@ public class FrmVehicleApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenuItem mniNew;
     private javax.swing.JMenuItem mniSalir;
     private javax.swing.JMenuItem mniView;
