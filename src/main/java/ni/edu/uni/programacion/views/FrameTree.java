@@ -20,12 +20,10 @@ public class FrameTree extends javax.swing.JFrame {
      */
     public FrameTree() {
         initComponents();
-        treeController= new treeController(this);
+     treeController= new TreeController(this);
     }
 
-    private FrameTree(Runnable aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
     
 
@@ -33,26 +31,24 @@ public class FrameTree extends javax.swing.JFrame {
         return btnAdd;
     }
 
-    public void setBtnAdd(JButton btnAdd) {
-        this.btnAdd = btnAdd;
-    }
-
     public JButton getBtnRemove() {
         return btnRemove;
     }
 
-    public void setBtnRemove(JButton btnRemove) {
-        this.btnRemove = btnRemove;
+     public JMenuItem getMniAdd() {
+        return MniAdd;
+    }
+     public JTree getTreeAccount() {
+        return treeaccount;
+    }
+    public JMenuItem getMniRemove() {
+        return MniRemove;
     }
 
-    public JTree getTreexd() {
-        return treexd;
+    public JPopupMenu getPmnTree() {
+        return pmnTree;
     }
-
-    public void setTreexd(JTree treexd) {
-        this.treexd = treexd;
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,18 +59,31 @@ public class FrameTree extends javax.swing.JFrame {
     private void initComponents() {
 
         pmnTree = new javax.swing.JPopupMenu();
+        MniAdd = new javax.swing.JMenuItem();
+        MniRemove = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        treexd = new javax.swing.JTree();
+        treeaccount = new javax.swing.JTree();
 
         pmnTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pmnTreeMouseClicked(evt);
             }
         });
+
+        MniAdd.setText("jMenuItem1");
+        MniAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MniAddMouseClicked(evt);
+            }
+        });
+        pmnTree.add(MniAdd);
+
+        MniRemove.setText("jMenuItem1");
+        pmnTree.add(MniRemove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,8 +108,13 @@ public class FrameTree extends javax.swing.JFrame {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Vehicle");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Make");
         treeNode1.add(treeNode2);
-        treexd.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(treexd);
+        treeaccount.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        treeaccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                treeaccountMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(treeaccount);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,6 +149,14 @@ public class FrameTree extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pmnTreeMouseClicked
 
+    private void MniAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MniAddMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MniAddMouseClicked
+
+    private void treeaccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeaccountMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_treeaccountMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -165,18 +187,24 @@ public class FrameTree extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameTree(this).setVisible(true);
+                new FrameTree().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MniAdd;
+    private javax.swing.JMenuItem MniRemove;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu pmnTree;
-    private javax.swing.JTree treexd;
+    private javax.swing.JTree treeaccount;
     // End of variables declaration//GEN-END:variables
+
+    public Object getpmnTree() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

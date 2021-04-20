@@ -6,15 +6,12 @@
 package ni.edu.uni.programacion.controllers;
 
 import javax.swing.tree.DefaultTreeModel;
-import ni.edu.uni.programacion.backend.pojo.VehicleSubModel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import ni.edu.uni.programacion.backend.dao.implementation.JsonVehicleDaoImpl;
 import ni.edu.uni.programacion.views.FrameTree;
 
 /**
@@ -22,12 +19,11 @@ import ni.edu.uni.programacion.views.FrameTree;
  * @author JADPA07
  */
 public class TreeController {
-    private TreeController treeController;
-    private DefaultTreeModel treeModel;
-    private List <VehicleSubModel> vehicleSubModel;
-    private DefaultMutableTreeNode root;
     private FrameTree frameTree;
-   
+    private DefaultTreeModel treeModel;
+    private DefaultMutableTreeNode root;
+    
+
    public TreeController(FrameTree frameTree) 
    {
    this.frameTree = frameTree;
@@ -41,40 +37,69 @@ public class TreeController {
             btnRemoveActionListener(e);
         });
         
-        frameTree.getTreexd().addMouseListener(new MouseAdapter() {
+        frameTree.getTreeAccount().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e){
                 treeXdMouseListener(e);
             }
-
-       private void treeXdMouseListener(MouseEvent e) {
-           throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       }
         });
    }      
-   
-
-    private void btnAddActionListener(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void btnRemoveActionListener(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
    public void initComponent(){
         root = new DefaultMutableTreeNode("Xd");
         treeModel = new DefaultTreeModel(root);
         
-        frameTree.getTreexd().setModel(treeModel);
+        frameTree.getTreeAccount().setModel(treeModel);
     }
    
      public void btnAddActionListener(ActionEvent e){
-        TreePath treePath = frameTree.getTreexd().getSelectionPath();
+        TreePath treePath = frameTree.getTreeAccount().getSelectionPath();
         if(treePath == null){
             return;
         }
-   
-   
-   
+    
+        DefaultMutableTreeNode parent = (DefaultMutableTreeNode)
+                treePath.getLastPathComponent();
+         String accountName = JOptionPane.showInputDialog(null, 
+                "Account Name: ", "Input Dialog", JOptionPane.INFORMATION_MESSAGE);
+
+        if(accountName.isEmpty()){
+            return;
+        }
+            DefaultMutableTreeNode child =new DefaultMutableTreeNode(accountName);
+                treeModel.insertNodeInto(child, parent, parent.getChildCount());          
+     }     
+                
+    private void btnRemoveActionListener(ActionEvent e) {
+         TreePath treePath = frameTree.getTreeAccount().getSelectionPath();
+        if(treePath == null){
+            return;
+        }
+       DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+          treePath.getLastPathComponent();
+       if(node.isRoot()){
+            return;
+        }
+        treeModel.removeNodeFromParent(node);
+    }
+    
+    private void treeXdMouseListener(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON3){
+            TreePath treePath = frameTree.getTreeAccount()
+                    .getPathForLocation(e.getX(), e.getY());
+            if(treePath == null){
+                treePath = frameTree.getTreeAccount().getSelectionPath();
+            }
+            
+            if(treePath == null){
+                return;
+            }
+            
+            frameTree.getpmnTree().show(frameTree.getTreeAccount(), 
+                    e.getX(), e.getY());
+            
+        }
+        
+    }
+       
 }
